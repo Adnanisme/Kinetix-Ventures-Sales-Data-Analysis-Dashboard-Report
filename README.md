@@ -59,63 +59,112 @@ Before performing any analysis, I began with cleaning the dataset. Key cleaning 
 
 1. Removing inconsistencies: For example, I found discrepancies in the product names, such as "sandals" with both correct and incorrect spellings. I used Excel's "Find and Replace" feature to ensure uniformity.
 
+![366966613-9a7723b5-6a17-43df-aa23-6a1ae1e441df](https://github.com/user-attachments/assets/45fd2b03-6088-4a9e-8e37-cd4366d56fc8)
 
-<p align="center">
-  ![image23](https://github.com/user-attachments/assets/391cfd57-8970-4f1d-8b12-a0f9a4408fe5)
-  <em>Figure 1: Data Loaded in PowerQuery</em>
-</p>
+2. Standardizing Gender Values: I replaced inconsistent entries in the gender column (e.g., "F," "M," and "woman") with "Male" and "Female" to maintain uniformity.
 
-To begin, a reorganization of the columns was undertaken, enhancing the data's structure and readability. As part of this process, the "Policy Number" column was designated as the index for efficient referencing. Additionally, an extraneous column at the end of the dataset was removed to streamline the data's presentation. Moreover, a new column called "Age Group" was introduced, facilitating subsequent analysis based on age-related criteria.
+![366966648-b7e64cd3-96b6-4b10-a12e-d0ea61267a1b](https://github.com/user-attachments/assets/129556ec-55b4-4575-b32f-a5cfea74a5a2)
 
-Subsequently, efforts were made to improve data interpretability through the application of functions such as replace() and proper(). For instance, the values "Husband" and "Wife" within the "Insured Relationship" column were unified and transformed into a more generic category, "Married". These transformations aimed to enhance the visualisation of the data and simplify the subsequent analytical processes.
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/blackcrowX/blackcrowX.github.io/main/images/project_I/screenshot_2.jpg"/>
-  <em>Figure 2: Data in Excel After Transformation</em>
-</p>
-
-The final step in the data preparation phase involved a thorough examination for missing values, duplicates, or inconsistencies within the dataset. In this particular project, the data proved to be free from such issues, bolstering the overall data quality and ensuring a robust analysis. The assessment was performed using the countif() function, mitigating the potential risks of errors and biases that could arise from incomplete or inconsistent data entries. This meticulous verification process lays the foundation for accurate and reliable analysis in subsequent stages.
+3. Ensuring Data Integrity: I checked all numerical columns (like Purchase Price, Sale Price, Profit, etc.) for correct formats and missing values. All values were found to be properly formatted.
 
 
-## Visualisation
 
-The data visualisation stage of the Excel project involved transforming the analyzed information into meaningful and easily understandable visual representations. This allowed for a comprehensive overview of the modeled data on a dedicated dashboard, enhancing the viewer's ability to gain insights efficiently. Several key steps were taken to achieve this goal.
+## Data Transformation
 
-To begin, a new Excel sheet was created specifically for the purpose of visualizing the data. This dedicated sheet served as the canvas for assembling various charts, tables, and visual elements, consolidating all the modeled information in a single, easily accessible location. This approach ensured that viewers could review the data at a glance, enabling a holistic understanding of the analysis outcomes.
+After cleaning the dataset, I applied two major transformations:
 
-To enhance interactivity and provide viewers with more control over the data exploration process, slicers were incorporated into the dashboard. Slicers function as interactive filters that allow for further data segmentation based on different criteria and the specific interests of the viewer. By utilizing slicers, viewers can dynamically adjust the displayed data, focusing on specific subsets or dimensions of the analysis that are most relevant to their investigation.
+1. Date to Month Conversion: I extracted the month from the "Date" column using the Excel TEXT function, creating a new "Month" column for monthly analysis.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/blackcrowX/blackcrowX.github.io/main/images/project_I/screenshot_7.jpg"/>
-  <em>Figure 7: Car Insurance Claim Fraud Dashboard Visualisation</em>
-</p>
+![366966630-f7befd67-e520-4d00-8609-a3d31280025e](https://github.com/user-attachments/assets/48170aa8-85f4-4312-b4a4-b89ff57f5f3e)
 
-These features collectively contribute to a more intuitive and user-friendly data visualisation experience. By presenting the analyzed information on a dedicated dashboard, viewers can quickly grasp the key insights and trends without feeling overwhelmed by the complexity of the underlying data. The inclusion of slicers adds an extra layer of interactivity, enabling viewers to explore the data from different angles and refine their analysis based on specific filters of interest.
+2. Age Group Categorization: I used IFS and AND functions to categorize customers into three age groups:
+   - Seniors: Age ≥ 60
+   - Middle-aged: Age between 30 and 60
+   - Younger: Age < 30
 
-Through this data visualisation process, the Excel project successfully addresses the initial research question regarding car insurance claim fraud. The consolidated dashboard and interactive slicers empower viewers to effortlessly navigate through the modeled data, facilitating a comprehensive understanding of the analysis outcomes while ensuring a streamlined and engaging data exploration experience.
+![366966637-4055b318-46e3-460e-93e0-d1aee699399d](https://github.com/user-attachments/assets/7a064ce5-c841-43fe-aa4d-5321db8be342)
 
-## Analysis
+## Data Analysis
 
-Using the modelled data in the dashboard, I was able to answer the initial questions and provide insights on car insurance claim fraud as following:
+With the cleaned and transformed dataset, I proceeded with data analysis using PivotTables. The following sections outline the steps taken to answer each business question.
 
-- **State:** The state of Ohio stands out as having the highest occurrence of fraudulent claims. Although the difference between the fraudulent and non-fraudulent datasets is relatively minor (36.6% versus 34.5%), it is worth monitoring claims originating from policies in Ohio for potential irregularities.
+### Top Three Products by Revenue
 
-- **Insured:** The analysis reveals that individuals in the age range of 35-44, particularly those who are single, constitute the largest group involved in fraudulent activities. Notably, males and individuals with a doctor's degree exhibit a higher propensity for fraudulent claims. Surprisingly, individuals with interests in chess or cross fit, along with men in executive managerial positions and women in sales occupations, show significantly higher claim rates in the fraudulent dataset compared to the non-fraudulent dataset. These observations suggest the need for increased scrutiny when assessing claims from insured individuals with these characteristics.
+I created a PivotTable to display the top three products by revenue. A PivotChart (bar chart) was added to visualize this data.
+Top Products: 
+1. Laptop
+2. Jeans
+3. Tv
 
-- **Incident:** The analysis highlights that a considerable number of fraudulent incidents occur during midday, primarily involving single-vehicle collisions resulting in substantial damages. Major damages account for a significantly higher percentage (69%) in the fraudulent dataset compared to the non-fraudulent dataset (14%). Additionally, incidents involving parked cars or vehicle theft are relatively rare in cases of car insurance claim fraud. These insights can aid in the identification of potentially fraudulent claims.
+![366978894-5a287818-a30b-4e82-844a-05373fe16c94](https://github.com/user-attachments/assets/533fd37f-8546-4e51-b796-f2644eb0c721)
 
-- **Correlation:** Through regression analysis, it was determined that there is no statistically significant correlation between the duration of policyholders' tenure (months as a customer) and the occurrence of fraudulent claims. However, it is worth noting that the analysis suggests a lower predicted frequency of fraudulent claims with longer customer tenure. This finding may be influenced by the limited number of policies spanning the observed time period, and caution should be exercised when interpreting this relationship based on the available data.
+### Average Delivery Time by Product
 
-These data analysis findings provide valuable insights into the characteristics and patterns associated with car insurance claim fraud. The identified trends and relationships offer actionable recommendations for heightened vigilance when handling claims from specific states, insured individuals with certain profiles, and incidents displaying particular patterns. The analysis contributes to a better understanding of fraudulent claims and supports decision-making processes aimed at detecting and mitigating insurance fraud.
+To calculate the average delivery time for each product, I created another PivotTable, adjusting the value field settings to display the average rather than the sum.
+
+![366966601-29f0ccc5-880b-4e37-950e-0d18765a7ecc](https://github.com/user-attachments/assets/57e70c36-2ef5-492f-aa9a-b4862803641b)
+
+### Total Revenue by Month
+
+I analyzed revenue trends by month by utilizing the transformed "Month" column. A line chart was used to display this trend, showing monthly revenue fluctuations.
+
+![366966679-6cd8d889-fdfe-4541-95f8-f1cf839a6ad1](https://github.com/user-attachments/assets/c6e88fbe-2894-42e6-a984-cb88199b20d2)
+
+###  Top Five States by Quantity of Items Purchased
+
+I created a PivotTable to rank states based on the quantity of items purchased. The top five states were visualized using a bar chart.
+
+![366966668-533d023d-6b25-4f0f-a65d-9ce2260dd96b](https://github.com/user-attachments/assets/b21a947c-cd5f-4fe8-bfac-4e7441b7565b)
+
+### Age Group with Most Purchases
+
+I grouped customers by age and calculated the total revenue generated by each group. The results were visualized using a pie chart.
+- Age Group with Most Purchases: Middle-aged (30-60 years)
+
+![366966565-57cb39c9-536d-4a0b-89b5-43231685d08b](https://github.com/user-attachments/assets/6e026398-eeaa-496e-bb06-04eed954e498)
+
+
+## Visualization
+
+###  Dashboard Design
+
+After addressing the business questions through thorough data analysis, I moved on to designing a fully interactive and user-friendly dashboard. This dashboard is designed to provide a visual representation of the insights derived from the data, making it easier for stakeholders to interpret and act upon the findings.
+
+The dashboard consists of the following key visualizations:
+
+1. Top Three Products by Revenue: A bar chart that highlights the top-performing products based on total revenue.
+2. Average Delivery Time: A bar chart that displays the average delivery time (in days) for each product.
+3. Revenue by Month: A line chart that illustrates the revenue trends across each month.
+4. Top Five States by Quantity of Items Purchased: A bar chart that ranks the top five states in terms of the number of items purchased.
+5. Age Group Purchases: A pie chart that breaks down the sales based on customer age groups.
+
+### Dashboard Interactivity
+
+To enhance the dashboard's functionality, I incorporated several slicers:
+
+- Product Category
+- Salesperson
+- Gender
+- State
+
+These slicers enable users to interact with the dashboard in a meaningful way, giving them the ability to explore various perspectives on the sales data.
+
+![366966609-2235be8e-8005-49a6-9598-4d16aea7d995](https://github.com/user-attachments/assets/fff15e26-cf0f-466e-a8ed-6d7683ed0d74)
+
+## Analysis and Insights
+
+Based on the data analysis and visualizations, the following key insights were derived:
+
+1. Top-Selling Products: The highest revenue-generating products are laptops, jeans, and watches.
+2. Dominance of Middle-Aged Buyers: The middle-aged demographic (30-60 years) emerged as the most active customer group in terms of purchases.
+3. Regional Sales Hotspots: The top-performing states by quantity of items purchased are Atlanta, Houston, and Washington D.C.
+
+## Recommendations
+
+1. Focus marketing campaigns on the top-selling products (laptops, jeans, and watches) to capitalize on their popularity.
+2. Tailor marketing strategies to appeal specifically to the middle-aged demographic (30-60 years).
+3. Implement targeted promotional activities in the top-performing states (Atlanta, Houston, and Washington D.C.) to further strengthen market presence.
 
 ## Conclusion
 
-In conclusion, this project successfully analyzed car insurance claim fraud using Microsoft Excel, leveraging advanced techniques such as PowerQuery, PowerPivot, PivotTable, PivotChart, and Regression Analysis. By investigating key indicators and patterns associated with fraudulent claims, insurance companies can enhance their fraud detection and prevention strategies.
-
-Moving forward, several areas warrant further exploration:
-
-1. **Develop advanced predictive models:** Utilize machine learning algorithms and techniques to build predictive models that can accurately detect fraudulent claims in real-time.
-
-2. **Expand the dataset:** Incorporate a larger and more diverse dataset to increase the robustness and generalizability of the analysis.
-
-By pursuing these next steps, insurance companies can further strengthen their ability to identify and mitigate car insurance claim fraud, ultimately minimizing financial losses and improving customer trust.
+This project highlights the importance of data cleaning, transformation, and visualization in deriving actionable insights. The interactive dashboard offers a clear, dynamic way to monitor sales performance and customer trends, helping businesses like Kinetix Ventures make data-driven decisions to improve sales and customer targeting. The insights gained from this analysis provide a solid foundation for strategic decision-making and future growth initiatives.
