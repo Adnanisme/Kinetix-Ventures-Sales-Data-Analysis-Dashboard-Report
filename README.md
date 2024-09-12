@@ -61,7 +61,7 @@ Before performing any analysis, I began with cleaning the dataset. Key cleaning 
 
 
 <p align="center">
-  <img src="ibb.co/dLpJ3Mp" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  ![image23](https://github.com/user-attachments/assets/391cfd57-8970-4f1d-8b12-a0f9a4408fe5)
   <em>Figure 1: Data Loaded in PowerQuery</em>
 </p>
 
